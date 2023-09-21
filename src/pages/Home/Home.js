@@ -1,6 +1,7 @@
 import styles from "./Home.module.css";
 import HeaderCard from "../../assets/images/header_1.svg";
 import ArrowIcon from "../../assets/images/ic_arrow.svg";
+import EventListItem from "../../components/EventListItem/EventListItem";
 
 const Home = () => {
   return (
@@ -36,18 +37,9 @@ const Home = () => {
 
         {/* 기간/대상 */}
         <div className={styles.infoContainer}>
-          <div className={styles.eventInfo}>
-            <div className={styles.infoTitle}>기간</div>
-            <div className={styles.infoText}>
-              2023.07.01(토) ~ 2023.12.31(일)
-            </div>
-          </div>
-          <div className={styles.eventInfo}>
-            <div className={styles.infoTitle}>대상</div>
-            <div className={styles.infoText}>
-              신한투자증권 생애 첫 계좌 개설 신규 고객
-            </div>
-          </div>
+          <EventListItem title={"기간"} text={"2023.07.01(토) ~ 2023.12.31(일)"} />
+          <EventListItem title={"대상"} text={"신한투자증권 생애 첫 계좌 개설 신규 고객"} />
+          
         </div>
         {/* 혜택받으러가기 버튼 */}
         <a>
