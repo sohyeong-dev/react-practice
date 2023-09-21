@@ -109,6 +109,15 @@
     line-height: normal;
 }
 
+.linkContentContainer{
+    max-height: 0;
+    overflow-y: hidden;
+    transition: all 700ms;
+}
+.itemOpen{
+    max-height: 500px;
+    display: block;
+}
 
 
 /* ------ 유의사항 섹션 ------ */

@@ -2,13 +2,28 @@ import styles from "./Home.module.css";
 import HeaderCard from "../../assets/images/header_1.svg";
 import ArrowIcon from "../../assets/images/ic_arrow.svg";
 import EventListItem from "../../components/EventListItem/EventListItem";
+import { useState } from "react";
+import LinkListItem from "../../components/LinkListItem/LinkListItem";
+import EventLogo1 from "../../assets/images/event_logo_1.png";
+import EventLogo2 from "../../assets/images/event_logo_2.png";
+import EventLogo3 from "../../assets/images/event_logo_3.png";
 
 const Home = () => {
+  const [openAccordian1, setOpenAccordian1] = useState(false);
+  const [openAccordian2, setOpenAccordian2] = useState(false);
+
   const events = [
     { title: '기간', text: '2023.07.01(토) ~ 2023.12.31(일)' },
     { title: '대상', text: '신한투자증권 생애 첫 계좌 개설 신규 고객' },
     { title: '혜택', text: '100만원 드림'},
   ];
+
+  const onClickAccordian1 = () => {
+    setOpenAccordian1(!openAccordian1);
+  };
+  const onClickAccordian2 = () => {
+    setOpenAccordian2(!openAccordian2);
+  };
 
   return (
     <div className={styles.container}>
@@ -43,8 +58,8 @@ const Home = () => {
 
         {/* 기간/대상 */}
         <div className={styles.infoContainer}>
-          {events.map(event => (
-            <EventListItem title={event.title} text={event.text} />
+          {events.map((event, idx) => (
+            <EventListItem key={idx} title={event.title} text={event.text} />
           ))}
         </div>
         {/* 혜택받으러가기 버튼 */}
@@ -54,15 +69,25 @@ const Home = () => {
       </section>
       {/* 추가 링크  */}
       <section className={styles.linkSection}>
-        <div className={styles.accordionContainer}>
+        <div className={styles.accordionContainer} onClick={onClickAccordian1}>
           <div className={styles.accordionTitle}>
             투자에 필요한 더~ 많은 혜택
           </div>
           <img src={ArrowIcon} className={styles.arrowIcon} />
         </div>
-        <div className={styles.accordionContainer}>
+
+        <div className={`${styles.linkContentContainer} ${openAccordian1 ? styles.itemOpen : ""}`}>
+          <LinkListItem subText={"수수료+환전우대 혜택까지"} text={"해외주식"} imageUrl={EventLogo1} linkUrl = {"https://digitalshinhansec.com/global"} />
+        </div>
+
+        <div className={styles.accordionContainer} onClick={onClickAccordian2}>
           <div className={styles.accordionTitle}>쉽고 빠른 투자 정보</div>
           <img src={ArrowIcon} className={styles.arrowIcon} />
+        </div>
+
+        <div className={`${styles.linkContentContainer} ${openAccordian2 ? styles.itemOpen : ""}`}>
+          <LinkListItem subText={"쉽게 이해되는 투자 콘텐츠가 가득!"} text={"<알파TV> 구독하기"} imageUrl={EventLogo2} linkUrl = {"https://digitalshinhansec.com/global"} />
+          <LinkListItem subText={"한발 빠르게 만나보는 투자 콘텐츠!"} text={"카카오톡 채널 추가하기"} imageUrl={EventLogo3} linkUrl = {"https://digitalshinhansec.com/global"} />
         </div>
       </section>
 
