@@ -6,3 +6,4 @@
 - components: 컴포넌트
 - utils: 공통 함수들
 - styles: 스타일 관련
+- assets: 소스 파일 외의 파일들
