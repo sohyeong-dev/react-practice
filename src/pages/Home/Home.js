@@ -4,6 +4,12 @@ import ArrowIcon from "../../assets/images/ic_arrow.svg";
 import EventListItem from "../../components/EventListItem/EventListItem";
 
 const Home = () => {
+  const events = [
+    { title: '기간', text: '2023.07.01(토) ~ 2023.12.31(일)' },
+    { title: '대상', text: '신한투자증권 생애 첫 계좌 개설 신규 고객' },
+    { title: '혜택', text: '100만원 드림'},
+  ];
+
   return (
     <div className={styles.container}>
       <section className={styles.header}>
@@ -37,9 +43,9 @@ const Home = () => {
 
         {/* 기간/대상 */}
         <div className={styles.infoContainer}>
-          <EventListItem title={"기간"} text={"2023.07.01(토) ~ 2023.12.31(일)"} />
-          <EventListItem title={"대상"} text={"신한투자증권 생애 첫 계좌 개설 신규 고객"} />
-          
+          {events.map(event => (
+            <EventListItem title={event.title} text={event.text} />
+          ))}
         </div>
         {/* 혜택받으러가기 버튼 */}
         <a>
