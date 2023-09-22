@@ -3,13 +3,13 @@ const EventCard = ({ event }) => {
   return (
     <div className={styles.cardContainer}>
       <div className={styles.cardImageContainer}>
-        <img className={styles.cardImage} src={event.cardImage} alt="banner" />
+        <img className={styles.cardImage} src={event.image} alt="banner" />
       </div>
       <div className={styles.cardTitle}>{event.title}</div>
       {/* 설명 */}
       <ul className={styles.cardDesc}>
-        {event.list?.map((desc) => (
-          <li>{desc}</li>
+        {event.restrictions?.map((desc, idx) => (
+          <li key={idx}>{desc}</li>
         ))}
       </ul>
     </div>

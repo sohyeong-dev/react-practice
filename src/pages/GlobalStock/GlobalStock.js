@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { getGlobalStockEventList } from "../../apis/stockApis";
 import TopNav from "../../components/TopNav/TopNav";
 
 import styles from "./GlobalStock.module.css";
@@ -6,7 +8,7 @@ import HeaderCard2 from "../../assets/images/slide9_04.png";
 import EventInfo from "../../components/EventInfo/EventInfo";
 import EventCard from "../../components/EventCard/EventCard";
 import { useNavigate } from "react-router-dom";
-import events from "../../data/eventsDummy.json"
+import eventInfos from "../../data/eventsDummy.json";
 
 const eventCards = [
   {
@@ -46,6 +48,17 @@ const eventCards = [
 const GlobalStock = () => {
   const navigate = useNavigate();
 
+  const [events, setEvents] = useState();
+
+  useEffect(() => {
+    fetchEvents();
+  }, [])
+
+  const fetchEvents = async () => {
+    const response = await getGlobalStockEventList();
+    setEvents(response);
+  }
+
   return (
     <>
       <TopNav />
@@ -57,25 +70,30 @@ const GlobalStock = () => {
 
       <div className={styles.container}>
         <section className={styles.header}>
-          <div className={styles.headerSubTitle}>지금이 일본 투자할 타이밍</div>
-          <div className={styles.headerTitle}>
-            <span className={styles.primaryColor}>수수료 + 환전우대 혜택!</span>
-          </div>
-          {/* 카드 섹션 */}
-          {eventCards.map((eventCard, idx) => (
-            <EventCard key={idx} event={eventCard} />
+          {events && events.map((event, idx) => (
+            <div key={idx}>
+              <div className={styles.headerSubTitle}>{event.subTitle}</div>
+              <div className={styles.headerTitle}>
+                <span className={styles.primaryColor}>{event.title}</span>
+              </div>
+              {/* 카드 섹션 */}
+              {event.benefits.map(benefit => (
+                <EventCard key={benefit.id} event={benefit} />
+              ))}
+
+              {/* 혜택받으러가기 버튼 */}
+              <a>
+                <div className={styles.applyButton}>{event.buttonLabel}</div>
+              </a>
+            </div>
           ))}
 
           {/* 기간/대상 */}
           <div className={styles.infoContainer}>
-            {events && events.map((event, idx) => (
+            {eventInfos && eventInfos.map((event, idx) => (
               <EventInfo key={idx} title={event.title} text={event.text} />
             ))}
           </div>
-          {/* 혜택받으러가기 버튼 */}
-          <a>
-            <div className={styles.applyButton}>일본 투자 시작하기</div>
-          </a>
         </section>
       </div>
     </>
